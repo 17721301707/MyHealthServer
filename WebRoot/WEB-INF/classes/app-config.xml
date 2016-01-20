@@ -23,82 +23,51 @@
 
 	<!-- 0.Spring公共配置 -->
 	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
-	<context:component-scan base-package="com.alvin.myhealth.*"
-		annotation-config="false">
-		<context:exclude-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
-		<context:exclude-filter type="annotation"
-			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
-	</context:component-scan>
+	<context:component-scan base-package="com.alvin.myhealth.*" />
+	<context:annotation-config></context:annotation-config>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<!-- 1.配置数据源 : DriverManagerDataSource -->
-	<!-- 
-	<bean id="datasource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/alvin" />
-		<property name="username" value="root" />
-		<property name="password" value="123456" />
-	</bean>
-	 -->
-	 
-	<!-- 
-	<bean id="datasource"
+ 	<bean id="datasource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://w.rdc.sae.sina.com.cn:3307/app_alvinzhu" />
 		<property name="username" value="z12w1wmjkl" />
-		<property name="password" value="yhm1yy5hw5yhy452yji5jy15w1w51yim4ii3il20"/>
+		<property name="password" value="xyyi4i4zz31h5m0xmhy5lizmhy1lx0j5lmwlwxmi"/>
 	</bean>
- 	-->
 	
-	<bean id="datasource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://nmynrawdslso.rds.sae.sina.com.cn:15439/my_health" />
-		<property name="username" value="alvin" />
-		<property name="password" value="123456"/>
-	</bean>
- 	
- 
-	<!-- 2.mybatis的SqlSession的工厂: SqlSessionFactoryBean dataSource / typeAliasesPackage -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+<!-- 
+    <bean id="datasource"  class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="jdbc:mysql://w.rdc.sae.sina.com.cn:3307/app_pengzhu?characterEncoding=utf8"/>
+        <property name="user"               value="z54ywo33jk" />
+        <property name="password"           value="z5lhy34wmxkzjmy3kjkl5zy0wi1l053h2lwjz22y" />
+        <property name="maxPoolSize"        value="12" />
+        <property name="minPoolSize"        value="0" />
+        <property name="maxStatements"      value="100" />
+        <property name="initialPoolSize"    value="3" />
+        <property name="maxIdleTime"        value="10"/>
+        <property name="idleConnectionTestPeriod"   value="10" />
+        <property name="testConnectionOnCheckin"    value="true" />
+        <property name="testConnectionOnCheckout"   value="false" />
+        <property name="preferredTestQuery"         value="SELECT 1 FROM DUAL" />
+    </bean>
+ -->  
+	<!-- 配置写的ibatis （主库） -->
+	<bean id="writerSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="datasource" />
-		<property name="typeAliasesPackage" value="com.alvin.myhealth.*.model" />
-		<property name="mapperLocations" value="classpath*:com.alvin.myhealth.*.dao.*.xml" />
+		<property name="configLocation" value="classpath:sqlMapConfig.xml" />
 	</bean>
 
-	<!-- 3. mybatis自动扫描加载Sql映射文件 : MapperScannerConfigurer sqlSessionFactory 
-		/ basePackage -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.alvin.myhealth.*.dao" />
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-		<property name="annotationClass" value="org.springframework.stereotype.Repository" />
+	<bean id="writerSqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="writerSqlSessionFactory" />
 	</bean>
 
-	<!-- 4. 事务管理 : DataSourceTransactionManager -->
-	<bean id="manager"
+	<!-- 事务控制 （主库） -->
+	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="datasource" />
 	</bean>
 
-	<!-- 5. 使用声明式事务 -->
-	<tx:annotation-driven transaction-manager="manager"
-		proxy-target-class="true" />
-	<!-- aop -->
-	<!-- 切入点表达式的使用规则： execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? 
-		name-pattern(param-pattern) throws-pattern?) 有“?”号的部分表示可省略的，modifers-pattern表示修饰符如public、protected等，ret-type-pattern表示方法返回类型， 
-		declaring-type-pattern代表特定的类，name-pattern代表方法名称，param-pattern表示参数，throws-pattern表示抛出的异常。 
-		在切入点表达式中，可以使用*来代表任意字符，用..来表示任意个参数。 -->
-	<aop:config>
-		<aop:advisor
-			pointcut="execution(* com.alvin.myhealth.*.service.*Service.*(..))"
-			advice-ref="txAdvice" />
-	</aop:config>
-	<tx:advice id="txAdvice" transaction-manager="manager">
-		<tx:attributes>
-			<tx:method name="*" rollback-for="Exception" />
-		</tx:attributes>
-	</tx:advice>
-	<!-- 声明式事务管理end -->
 </beans>

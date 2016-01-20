@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alvin.myhealth.core.model.ResultModel;
-import com.alvin.myhealth.user.dao.UserMapper;
+import com.alvin.myhealth.user.dao.UserDao;
 import com.alvin.myhealth.user.model.User;
 
-@Service
+@Service("UserService")
 public class UserService {
 	@Autowired
-	private UserMapper userManager;
+	private UserDao userManager;
 
 
 	/**
@@ -20,7 +20,7 @@ public class UserService {
 	 * @return
 	 */
 	public ResultModel isExistUserInfoByUserName(String userName) {
-		User user = userManager.selectUserInfoByUserName(userName);
+		User user = userManager.selectUserInfo(userName);
 		ResultModel resultModel = new ResultModel();
 		if (user != null) {
 			resultModel.setFlag(true);

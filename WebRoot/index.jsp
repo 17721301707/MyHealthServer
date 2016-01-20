@@ -7,7 +7,7 @@
 </head>
 
 <body>
-	Login1:
+	UserCheck:
 	<form action="<%=request.getContextPath()%>/user/login" method="post" id="login">
 		Phone: <input type="text" name="phone"><br> 
 		<input type="submit" value="Submit">

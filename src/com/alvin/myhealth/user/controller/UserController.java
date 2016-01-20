@@ -1,8 +1,8 @@
 package com.alvin.myhealth.user.controller;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,13 +16,12 @@ import com.alvin.myhealth.user.service.UserService;
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
-	@Autowired
+	@Resource(name="UserService")
 	private UserService service;
 	
-	@ResponseBody
 	@RequestMapping(value = "/isExistUserName")
-	public  ResultModel isExistUserInfoByUserName(@RequestBody String userName){
-		ResultModel result = service.isExistUserInfoByUserName("17721301707");
+	public @ResponseBody ResultModel isExistUserInfoByUserName(@RequestBody String userName){
+		ResultModel result = service.isExistUserInfoByUserName(userName);
 		if (result.getFlag()) {
 			System.out.println("YES " + result.getContent());
 		} else {
@@ -34,14 +33,14 @@ public class UserController {
 	@RequestMapping(value ="/login" ,method = RequestMethod.POST)
     public ModelAndView checkSignature(String phone, HttpServletResponse response) throws Exception {
         System.out.println("Input:"+phone);
-        ResultModel result = service.isExistUserInfoByUserName("17721301707");
+        ResultModel result = service.isExistUserInfoByUserName(phone);
 		if (result.getFlag()) {
 			System.out.println("YES " + result.getContent());
 		} else {
 			System.out.println("NO " + result.getContent());
 		}
 		ModelAndView mv=new ModelAndView("");
-		mv.setViewName("redirect:/test1.jsp");
+		mv.setViewName("redirect:/jump.jsp");
 		return mv;
     }
 }
