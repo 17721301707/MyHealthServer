@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alvin.myhealth.user.dao.UserMapper">
+
+	<resultMap type="com.alvin.myhealth.user.model.User" id="UserResultMap">
+		<result property="phone" column="phone" />
+		<result property="password" column="password" />
+	</resultMap>
+	
+	<sql id="columnsofuser">
+		user.phone as phone,
+		user.password as password
+	</sql>
+	
+	<select id="selectUserInfoByUserName" parameterType="string"
+		resultMap="UserResultMap">
+		SELECT
+		<include refid="columnsofuser" />
+		FROM user WHERE user.phone =#{userName}
+	</select>
+</mapper>
