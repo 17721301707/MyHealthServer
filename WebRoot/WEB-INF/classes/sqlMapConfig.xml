@@ -24,7 +24,7 @@
 		<setting name="defaultStatementTimeout" value="25000" />
 	</settings>
 	<typeAliases>
-		<typeAlias alias="User" type="com.alvin.myhealth.user.model.User" />
+		<typeAlias alias="UserInfo" type="com.alvin.myhealth.user.model.UserInfo" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/alvin/myhealth/user/dao/UserMapper.xml" />

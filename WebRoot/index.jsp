@@ -3,12 +3,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>My JSP 'index.jsp' starting page</title>
+<title>Index Page</title>
 </head>
 
 <body>
-	UserCheck:
-	<form action="<%=request.getContextPath()%>/user/login" method="post" id="login">
+	UserCheck 2016/01/20:
+	<form action="<%=request.getContextPath()%>/user/test" method="post" id="test">
 		Phone: <input type="text" name="phone"><br> 
 		<input type="submit" value="Submit">
 	</form>

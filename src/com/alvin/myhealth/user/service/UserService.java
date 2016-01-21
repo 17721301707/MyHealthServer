@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.alvin.myhealth.core.model.ResultModel;
 import com.alvin.myhealth.user.dao.UserDao;
-import com.alvin.myhealth.user.model.User;
+import com.alvin.myhealth.user.model.UserInfo;
 
 @Service("UserService")
 public class UserService {
@@ -19,17 +19,27 @@ public class UserService {
 	 * @param userName
 	 * @return
 	 */
-	public ResultModel isExistUserInfoByUserName(String userName) {
-		User user = userManager.selectUserInfo(userName);
+	public ResultModel verifyPhone(String phone) {
+		UserInfo user = userManager.selectUserInfo(phone);
 		ResultModel resultModel = new ResultModel();
 		if (user != null) {
 			resultModel.setFlag(true);
-			resultModel.setContent(userName + "该用户名已存在！");
+			resultModel.setContent(phone + "该手机存在");
 		} else {
 			resultModel.setFlag(false);
-			resultModel.setContent(userName + "该用户名可以使用！");
+			resultModel.setContent(phone + "该手机不存在");
 		}
 		return resultModel;
+	}
+	
+	/**
+	 * 登录
+	 * @param userInfo
+	 * @return
+	 */
+	public UserInfo login(UserInfo userInfo)
+	{
+		return userManager.login(userInfo);
 	}
 	
 	

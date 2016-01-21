@@ -2,7 +2,7 @@ package com.alvin.myhealth.user.model;
 
 import com.alvin.myhealth.core.model.BaseEntity;
 
-public class User extends BaseEntity {
+public class UserInfo extends BaseEntity {
 	private static final long serialVersionUID = -7411941378718752278L;
 	/*
 	 * 手机号
@@ -12,6 +12,10 @@ public class User extends BaseEntity {
 	 * 密码
 	 */
 	private String password;
+	/*
+	 * 创建时间
+	 */
+	private String createtime;
 
 	public String getPhone() {
 		return phone;
@@ -29,4 +33,13 @@ public class User extends BaseEntity {
 		this.password = password;
 	}
 
+	public String getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(String createtime) {
+		this.createtime = createtime;
+	}
+
+	
 }

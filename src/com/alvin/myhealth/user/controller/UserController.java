@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alvin.myhealth.core.model.ResultModel;
+import com.alvin.myhealth.user.model.UserInfo;
 import com.alvin.myhealth.user.service.UserService;
 
 @Controller
@@ -19,9 +20,10 @@ public class UserController {
 	@Resource(name="UserService")
 	private UserService service;
 	
-	@RequestMapping(value = "/isExistUserName")
-	public @ResponseBody ResultModel isExistUserInfoByUserName(@RequestBody String userName){
-		ResultModel result = service.isExistUserInfoByUserName(userName);
+	@RequestMapping(value = "/verifyPhone")
+	public @ResponseBody ResultModel verifyPhone(@RequestBody String phone){
+		System.out.println("infterface verifyPhone get:"+phone);
+		ResultModel result = service.verifyPhone(phone);
 		if (result.getFlag()) {
 			System.out.println("YES " + result.getContent());
 		} else {
@@ -30,10 +32,10 @@ public class UserController {
 		return result;
 	}
 	
-	@RequestMapping(value ="/login" ,method = RequestMethod.POST)
-    public ModelAndView checkSignature(String phone, HttpServletResponse response) throws Exception {
+	@RequestMapping(value ="/test" ,method = RequestMethod.POST)
+    public ModelAndView checkSignature(String phone,HttpServletResponse response) throws Exception {
         System.out.println("Input:"+phone);
-        ResultModel result = service.isExistUserInfoByUserName(phone);
+        ResultModel result = service.verifyPhone(phone);
 		if (result.getFlag()) {
 			System.out.println("YES " + result.getContent());
 		} else {
@@ -43,4 +45,16 @@ public class UserController {
 		mv.setViewName("redirect:/jump.jsp");
 		return mv;
     }
+	
+	@RequestMapping(value = "/login")
+	public @ResponseBody UserInfo login(@RequestBody UserInfo userInfo){
+		System.out.println("infterface login:"+userInfo.getPhone()+","+userInfo.getPassword());
+		UserInfo result = service.login(userInfo);
+		if(result!=null){
+			System.out.println("Yes:"+result.getPhone());
+		}else {
+			System.out.println("No");
+		}
+		return result;
+	}
 }
