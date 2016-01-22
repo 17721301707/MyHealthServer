@@ -3,7 +3,6 @@ package com.alvin.myhealth.user.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alvin.myhealth.core.model.ResultModel;
 import com.alvin.myhealth.user.dao.UserDao;
 import com.alvin.myhealth.user.model.UserInfo;
 
@@ -19,28 +18,28 @@ public class UserService {
 	 * @param userName
 	 * @return
 	 */
-	public ResultModel verifyPhone(String phone) {
-		UserInfo user = userManager.selectUserInfo(phone);
-		ResultModel resultModel = new ResultModel();
-		if (user != null) {
-			resultModel.setFlag(true);
-			resultModel.setContent(phone + "该手机存在");
-		} else {
-			resultModel.setFlag(false);
-			resultModel.setContent(phone + "该手机不存在");
-		}
-		return resultModel;
+	public UserInfo verifyPhone(String phone) {
+		return userManager.selectUserInfo(phone);
 	}
 	
 	/**
-	 * 登录
+	 * 验证用户和密码
 	 * @param userInfo
 	 * @return
 	 */
-	public UserInfo login(UserInfo userInfo)
+	public UserInfo selectUserInfo(UserInfo userInfo)
 	{
-		return userManager.login(userInfo);
+		return userManager.selectUserInfo(userInfo);
 	}
 	
+	
+	/**
+	 * 插入用户信息
+	 * @param userInfo
+	 */
+	public void insertUserInfo(UserInfo userInfo)
+	{
+		userManager.insertUserInfo(userInfo);
+	}
 	
 }

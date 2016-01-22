@@ -28,4 +28,9 @@ public class ResultModel extends BaseEntity {
 		this.content = content;
 	}
 
+	@Override
+	public String toString() {
+		return "flag->" + flag + "content->" + content;
+	}
+
 }

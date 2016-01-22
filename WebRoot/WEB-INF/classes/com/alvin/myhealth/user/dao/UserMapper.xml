@@ -20,11 +20,16 @@
 		from user where phone =#{phone}
 	</select>
 	
-	<select id="login" parameterType="UserInfo"
+	<select id="selectUserInfoByPhonePw" parameterType="UserInfo"
 		resultMap="UserResultMap">
 		select
 		<include refid="columnsofuser" />
 		from user where phone =#{phone} and password =#{password}
 	</select>
+	
+	<insert id="insertUser" parameterType="UserInfo">
+		insert into user (phone,password,createtime) 
+		values(#{phone},#{password},#{createtime})
+	</insert>
 
 </mapper>

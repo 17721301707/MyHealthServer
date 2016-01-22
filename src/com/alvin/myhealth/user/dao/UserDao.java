@@ -23,8 +23,18 @@ public class UserDao extends BaseDao{
 	 * @param userInfo
 	 * @return
 	 */
-	public UserInfo login(UserInfo userInfo)
+	public UserInfo selectUserInfo(UserInfo userInfo)
 	{
-		return this.writerSqlSession.selectOne("com.alvin.myhealth.user.dao.UserDao.login",userInfo);
+		return this.writerSqlSession.selectOne("com.alvin.myhealth.user.dao.UserDao.selectUserInfoByPhonePw",userInfo);
+	}
+	
+	/**
+	 * 添加用户信息
+	 * @param userInfo
+	 * @return
+	 */
+	public void insertUserInfo(UserInfo userInfo)
+	{
+		this.writerSqlSession.selectOne("com.alvin.myhealth.user.dao.UserDao.insertUser",userInfo);
 	}
 }

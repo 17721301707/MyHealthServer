@@ -23,10 +23,17 @@
 		<!-- 数据库超过25000秒仍未响应则超时 -->
 		<setting name="defaultStatementTimeout" value="25000" />
 	</settings>
+	
 	<typeAliases>
 		<typeAlias alias="UserInfo" type="com.alvin.myhealth.user.model.UserInfo" />
+		<typeAlias alias="Message" type="com.alvin.myhealth.weixin.model.Message"/>
+		<typeAlias alias="Reply" type="com.alvin.myhealth.weixin.model.Reply"/>
+		<typeAlias type="com.alvin.myhealth.weixin.model.Article"/>
 	</typeAliases>
+	
 	<mappers>
 		<mapper resource="com/alvin/myhealth/user/dao/UserMapper.xml" />
+		<mapper resource="com/alvin/myhealth/weixin/dao/MessageMapper.xml"/>
 	</mappers>
+	
 </configuration>
