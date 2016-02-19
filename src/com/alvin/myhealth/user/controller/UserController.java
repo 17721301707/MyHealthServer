@@ -27,10 +27,10 @@ public class UserController {
 		ResultModel resultModel = new ResultModel();
 		if (result != null) {
 			resultModel.setFlag(true);
-			resultModel.setContent(phone + "¸ÃÊÖ»úÒÑ´æÔÚ");
+			resultModel.setContent(phone + "è¯¥æ‰‹æœºå·²å­˜åœ¨");
 		} else {
 			resultModel.setFlag(false);
-			resultModel.setContent(phone + "¸ÃÊÖ»úÎ´×¢²á");
+			resultModel.setContent(phone + "å¯ä»¥æ³¨å†Œ");
 		}
 		System.out.println(resultModel.toString());
 		return resultModel;
@@ -67,19 +67,19 @@ public class UserController {
 		System.out.println("interface register:" + userInfo.getPhone() + ","
 				+ userInfo.getPassword());
 		ResultModel resultModel = new ResultModel();
-		// ²éÑ¯¸ÃÊÖ»úÊÇ·ñ×¢²á¹ı
+		// éªŒè¯æ‰‹æœºæ˜¯å¦å­˜åœ¨
 		UserInfo user = service.verifyPhone(userInfo.getPhone());
 		if (user != null) {
 			resultModel.setFlag(false);
-			resultModel.setContent("ÒÑ×¢²á");
+			resultModel.setContent("æ‰‹æœºå·²å­˜åœ¨");
 		} else {
 			try {
 				service.insertUserInfo(userInfo);
 				resultModel.setFlag(true);
-				resultModel.setContent("³É¹¦");
+				resultModel.setContent("æ³¨å†ŒæˆåŠŸ");
 			} catch (Exception e) {
 				resultModel.setFlag(false);
-				resultModel.setContent("Ê§°Ü");
+				resultModel.setContent("æ³¨å†Œå¤±è´¥");
 				e.printStackTrace();
 			}
 		}

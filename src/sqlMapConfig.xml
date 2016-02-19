@@ -28,12 +28,14 @@
 		<typeAlias alias="UserInfo" type="com.alvin.myhealth.user.model.UserInfo" />
 		<typeAlias alias="Message" type="com.alvin.myhealth.weixin.model.Message"/>
 		<typeAlias alias="Reply" type="com.alvin.myhealth.weixin.model.Reply"/>
-		<typeAlias type="com.alvin.myhealth.weixin.model.Article"/>
+		<typeAlias alias="Article" type="com.alvin.myhealth.weixin.model.Article"/>
+		<typeAlias alias="HeartBeat" type="com.alvin.myhealth.heart.model.HeartBeat"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="com/alvin/myhealth/user/dao/UserMapper.xml" />
 		<mapper resource="com/alvin/myhealth/weixin/dao/MessageMapper.xml"/>
+		<mapper resource="com/alvin/myhealth/heart/dao/HeartBeatMapper.xml"/>
 	</mappers>
 	
 </configuration>

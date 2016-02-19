@@ -13,7 +13,6 @@ public class UserService {
 
 
 	/**
-	 * 验证是否存在用户名
 	 * 
 	 * @param userName
 	 * @return
@@ -23,7 +22,6 @@ public class UserService {
 	}
 	
 	/**
-	 * 验证用户和密码
 	 * @param userInfo
 	 * @return
 	 */
@@ -34,7 +32,6 @@ public class UserService {
 	
 	
 	/**
-	 * 插入用户信息
 	 * @param userInfo
 	 */
 	public void insertUserInfo(UserInfo userInfo)

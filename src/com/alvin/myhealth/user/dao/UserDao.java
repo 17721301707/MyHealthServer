@@ -9,7 +9,6 @@ import com.alvin.myhealth.user.model.UserInfo;
 @Component("UserDao")
 public class UserDao extends BaseDao{
 	/**
-	 * 检查手机是否存在
 	 * @param phone
 	 * @return
 	 */
@@ -19,7 +18,6 @@ public class UserDao extends BaseDao{
 	}
 	
 	/**
-	 * 登录
 	 * @param userInfo
 	 * @return
 	 */
@@ -29,7 +27,6 @@ public class UserDao extends BaseDao{
 	}
 	
 	/**
-	 * 添加用户信息
 	 * @param userInfo
 	 * @return
 	 */
